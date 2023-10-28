@@ -418,6 +418,12 @@ int32_t lps22hb_write_reg(stmdev_ctx_t *ctx, uint8_t reg,
 
 float_t lps22hb_from_lsb_to_hpa(int32_t lsb);
 
+float_t lps22hb_from_lsb_to_kpa(int32_t lsb);
+
+float_t lps22hb_from_lsb_to_psi(int32_t lsb);
+
+float_t lps22hb_from_lsb_to_altitude(int32_t lsb);
+
 float_t lps22hb_from_lsb_to_degc(int16_t lsb);
 
 int32_t lps22hb_autozero_rst_set(stmdev_ctx_t *ctx, uint8_t val);
@@ -481,6 +487,17 @@ int32_t lps22hb_temp_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val);
 int32_t lps22hb_pressure_raw_get(stmdev_ctx_t *ctx, uint32_t *buff);
 
 int32_t lps22hb_temperature_raw_get(stmdev_ctx_t *ctx, int16_t *buff);
+
+typedef struct __attribute__((packed))
+{
+  uint8_t bytes[5];
+} lps22hb_fifo_output_data_t;
+
+int32_t lps22hb_fifo_output_data_to_raw_pressure(lps22hb_fifo_output_data_t* val);
+
+int16_t lps22hb_fifo_output_data_to_raw_temperature(lps22hb_fifo_output_data_t* val);
+
+int32_t lps22hb_fifo_output_data_burst_get(stmdev_ctx_t *ctx, lps22hb_fifo_output_data_t *buff, uint8_t len);
 
 int32_t lps22hb_low_pass_rst_get(stmdev_ctx_t *ctx, uint8_t *buff);
 
