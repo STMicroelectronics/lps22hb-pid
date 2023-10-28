@@ -91,7 +91,26 @@ int32_t __weak lps22hb_write_reg(stmdev_ctx_t *ctx, uint8_t reg,
 
 float_t lps22hb_from_lsb_to_hpa(int32_t lsb)
 {
-  return ((float_t)lsb / 1048576.0f);
+  return ((float_t)lsb / 4096.0f);
+}
+
+float_t lps22hb_from_lsb_to_kpa(int32_t lsb)
+{
+  return lps22hb_from_lsb_to_hpa(lsb) / 10.0f;
+}
+
+float_t lps22hb_from_lsb_to_psi(int32_t lsb)
+{
+  return lps22hb_from_lsb_to_hpa(lsb) * 0.0145038f;
+}
+
+float_t lps22hb_from_lsb_to_altitude(int32_t lsb)
+{
+  float_t atmospheric = lps22hb_from_lsb_to_hpa(lsb);
+  // The altitude in meters can be calculated with the
+  // international barometric formula.
+  // Average sea level pressure is 1013.25 hPa.
+  return 44330.0 * (1.0 - pow(atmospheric/1013.25f, (1.0/5.255)));
 }
 
 float_t lps22hb_from_lsb_to_degc(int16_t lsb)
@@ -725,6 +744,47 @@ int32_t lps22hb_temperature_raw_get(stmdev_ctx_t *ctx, int16_t *buff)
   *buff = (*buff * 256) + reg[0];
 
   return ret;
+}
+
+/**
+  * @defgroup    LPS22HB_FIFO_Output_Data
+  * @brief       These functions convert FIFO output data to seperate
+  *              (pressure, temperautre) fields.
+  * @{
+  *
+  */
+
+int32_t lps22hb_fifo_output_data_to_raw_pressure(lps22hb_fifo_output_data_t* val)
+{
+  int32_t pressure = val->bytes[2];
+  pressure = (pressure * 256) + val->bytes[1];
+  return (pressure * 256) + val->bytes[0];
+}
+
+int16_t lps22hb_fifo_output_data_to_raw_temperature(lps22hb_fifo_output_data_t* val)
+{
+  int16_t temperature = val->bytes[4];
+  return (temperature * 256) + val->bytes[3];
+}
+
+/**
+  * @}
+  *
+  */
+
+/**
+  * @brief  Burst read fifo output data.
+  *
+  * @param  ctx    Read / write interface definitions
+  * @param  buff   Buffer that stores data read.
+  * @param  len    How many pressure-temperature pairs to read from the fifo.
+  * @retval        Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t lps22hb_fifo_output_data_burst_get(stmdev_ctx_t *ctx, lps22hb_fifo_output_data_t *buff, uint8_t len)
+{
+  if (len > 32) len = 32;
+  return lps22hb_read_reg(ctx, LPS22HB_PRESS_OUT_XL, (uint8_t*)&buff[0], len * sizeof(lps22hb_fifo_output_data_t));
 }
 
 /**
