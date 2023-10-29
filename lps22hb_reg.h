@@ -113,7 +113,7 @@ typedef int32_t (*stmdev_write_ptr)(void *, uint8_t, const uint8_t *, uint16_t);
 typedef int32_t (*stmdev_read_ptr)(void *, uint8_t, uint8_t *, uint16_t);
 typedef void (*stmdev_mdelay_ptr)(uint32_t millisec);
 
-typedef struct
+typedef struct _stmdev_ctx_t
 {
   /** Component mandatory fields **/
   stmdev_write_ptr  write_reg;
@@ -488,7 +488,7 @@ int32_t lps22hb_pressure_raw_get(stmdev_ctx_t *ctx, uint32_t *buff);
 
 int32_t lps22hb_temperature_raw_get(stmdev_ctx_t *ctx, int16_t *buff);
 
-typedef struct __attribute__((packed))
+typedef struct __attribute__((packed)) _lps22hb_fifo_output_data_t
 {
   uint8_t bytes[5];
 } lps22hb_fifo_output_data_t;
