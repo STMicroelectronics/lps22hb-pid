@@ -480,6 +480,8 @@ int32_t lps22hb_press_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val);
 
 int32_t lps22hb_temp_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val);
 
+int32_t lps22hb_data_ready_get(stmdev_ctx_t *ctx, uint8_t *press_val, uint8_t *temp_val);
+
 int32_t lps22hb_press_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val);
 
 int32_t lps22hb_temp_data_ovr_get(stmdev_ctx_t *ctx, uint8_t *val);
