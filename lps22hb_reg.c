@@ -667,6 +667,27 @@ int32_t lps22hb_temp_data_ready_get(stmdev_ctx_t *ctx, uint8_t *val)
 }
 
 /**
+  * @brief  Pressure and temperature data available.[get]
+  *
+  * @param  ctx          Read / write interface definitions
+  * @param  press_val    Change the values of p_da in reg STATUS
+  * @param  temp_val     Change the values of t_da in reg STATUS
+  * @retval              Interface status (MANDATORY: return 0 -> no Error).
+  *
+  */
+int32_t lps22hb_data_ready_get(stmdev_ctx_t *ctx, uint8_t *press_val, uint8_t *temp_val)
+{
+  lps22hb_status_t status;
+  int32_t ret;
+
+  ret = lps22hb_read_reg(ctx, LPS22HB_STATUS, (uint8_t *)&status, 1);
+  *press_val = status.p_da;
+  *temp_val = status.t_da;
+
+  return ret;
+}
+
+/**
   * @brief  Pressure data overrun.[get]
   *
   * @param  ctx    Read / write interface definitions
