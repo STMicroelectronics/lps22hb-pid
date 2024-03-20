@@ -44,7 +44,7 @@ This directory contains the LPS22HB component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section2" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section2" aria-hidden="true">
 <label for="collapse-section2" aria-hidden="true">V1.1.0 / 01-June-2023</label>
 <div>
 
@@ -53,6 +53,24 @@ This directory contains the LPS22HB component drivers.
 - Add __weak directive to read/write registers routines
 - Extend stmdev_ctx_t structure with mdelay callback
 - repo name changed adding '-pid' extension
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section3" checked aria-hidden="true">
+<label for="collapse-section3" aria-hidden="true">V2.0.0 / 20-Mar-2024</label>
+<div>
+
+## Main changes
+
+- Fixed code style (Artistic Style Version 3.4.13)
+- Add "const" to ctx arg for all APIs
+- [IMPROVEMENT] Adding method to get pressure and temperature data ready in one call. (More efficient)
+- [IMPROVEMENT] Allow forward declaration of stmdev_ctx_t and lps22hb_fifo_output_data_t structs.
+- [IMPROVEMENT][lps22hb_fifo_output_data_burst_get] Added burst FIFO read method.
+- [FIX][lps22hb_from_lsb_to_hpa] Fixed raw pressure data to hPa calculation.i
+- [IMPROVEMENT][lps22hb_from_lsb_to_...] Added a few more engineering units.
 
 ##
 
