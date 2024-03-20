@@ -495,11 +495,12 @@ typedef struct __attribute__((packed)) _lps22hb_fifo_output_data_t
   uint8_t bytes[5];
 } lps22hb_fifo_output_data_t;
 
-int32_t lps22hb_fifo_output_data_to_raw_pressure(lps22hb_fifo_output_data_t* val);
+int32_t lps22hb_fifo_output_data_to_raw_pressure(lps22hb_fifo_output_data_t *val);
 
-int16_t lps22hb_fifo_output_data_to_raw_temperature(lps22hb_fifo_output_data_t* val);
+int16_t lps22hb_fifo_output_data_to_raw_temperature(lps22hb_fifo_output_data_t *val);
 
-int32_t lps22hb_fifo_output_data_burst_get(const stmdev_ctx_t *ctx, lps22hb_fifo_output_data_t *buff, uint8_t len);
+int32_t lps22hb_fifo_output_data_burst_get(const stmdev_ctx_t *ctx,
+                                           lps22hb_fifo_output_data_t *buff, uint8_t len);
 
 int32_t lps22hb_low_pass_rst_get(const stmdev_ctx_t *ctx, uint8_t *buff);
 

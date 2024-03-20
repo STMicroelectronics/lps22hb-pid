@@ -51,7 +51,10 @@ int32_t __weak lps22hb_read_reg(const stmdev_ctx_t *ctx, uint8_t reg,
 {
   int32_t ret;
 
-  if (ctx == NULL) return -1;
+  if (ctx == NULL)
+  {
+    return -1;
+  }
 
   ret = ctx->read_reg(ctx->handle, reg, data, len);
 
@@ -74,7 +77,10 @@ int32_t __weak lps22hb_write_reg(const stmdev_ctx_t *ctx, uint8_t reg,
 {
   int32_t ret;
 
-  if (ctx == NULL) return -1;
+  if (ctx == NULL)
+  {
+    return -1;
+  }
 
   ret = ctx->write_reg(ctx->handle, reg, data, len);
 
@@ -114,7 +120,7 @@ float_t lps22hb_from_lsb_to_altitude(int32_t lsb)
   // The altitude in meters can be calculated with the
   // international barometric formula.
   // Average sea level pressure is 1013.25 hPa.
-  return 44330.0 * (1.0 - pow(atmospheric/1013.25f, (1.0/5.255)));
+  return 44330.0 * (1.0 - pow(atmospheric / 1013.25f, (1.0 / 5.255)));
 }
 
 float_t lps22hb_from_lsb_to_degc(int16_t lsb)
@@ -779,14 +785,14 @@ int32_t lps22hb_temperature_raw_get(const stmdev_ctx_t *ctx, int16_t *buff)
   *
   */
 
-int32_t lps22hb_fifo_output_data_to_raw_pressure(lps22hb_fifo_output_data_t* val)
+int32_t lps22hb_fifo_output_data_to_raw_pressure(lps22hb_fifo_output_data_t *val)
 {
   int32_t pressure = val->bytes[2];
   pressure = (pressure * 256) + val->bytes[1];
   return (pressure * 256) + val->bytes[0];
 }
 
-int16_t lps22hb_fifo_output_data_to_raw_temperature(lps22hb_fifo_output_data_t* val)
+int16_t lps22hb_fifo_output_data_to_raw_temperature(lps22hb_fifo_output_data_t *val)
 {
   int16_t temperature = val->bytes[4];
   return (temperature * 256) + val->bytes[3];
@@ -806,10 +812,15 @@ int16_t lps22hb_fifo_output_data_to_raw_temperature(lps22hb_fifo_output_data_t* 
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lps22hb_fifo_output_data_burst_get(const stmdev_ctx_t *ctx, lps22hb_fifo_output_data_t *buff, uint8_t len)
+int32_t lps22hb_fifo_output_data_burst_get(const stmdev_ctx_t *ctx,
+                                           lps22hb_fifo_output_data_t *buff, uint8_t len)
 {
-  if (len > 32) len = 32;
-  return lps22hb_read_reg(ctx, LPS22HB_PRESS_OUT_XL, (uint8_t*)&buff[0], len * sizeof(lps22hb_fifo_output_data_t));
+  if (len > 32)
+  {
+    len = 32;
+  }
+  return lps22hb_read_reg(ctx, LPS22HB_PRESS_OUT_XL, (uint8_t *)&buff[0],
+                          len * sizeof(lps22hb_fifo_output_data_t));
 }
 
 /**
