@@ -101,7 +101,7 @@ int32_t __weak lps22hb_write_reg(const stmdev_ctx_t *ctx, uint8_t reg,
 
 float_t lps22hb_from_lsb_to_hpa(int32_t lsb)
 {
-  return ((float_t)lsb / 4096.0f);
+  return ((float_t)lsb / 1048576.0f);   /* 4096.0f * 256 */
 }
 
 float_t lps22hb_from_lsb_to_kpa(int32_t lsb)
