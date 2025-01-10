@@ -120,7 +120,7 @@ float_t lps22hb_from_lsb_to_altitude(int32_t lsb)
   // The altitude in meters can be calculated with the
   // international barometric formula.
   // Average sea level pressure is 1013.25 hPa.
-  return 44330.0 * (1.0 - pow(atmospheric / 1013.25f, (1.0 / 5.255)));
+  return 44330.0f * (1.0f - powf(atmospheric / 1013.25f, (1.0f / 5.255f)));
 }
 
 float_t lps22hb_from_lsb_to_degc(int16_t lsb)
