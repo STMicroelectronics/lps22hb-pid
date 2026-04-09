@@ -586,7 +586,7 @@ int32_t lps22hb_pressure_ref_set(const stmdev_ctx_t *ctx, int32_t val)
   int32_t ret;
 
   buff[2] = (uint8_t)((uint32_t)val / 65536U);
-  buff[1] = (uint8_t)((uint32_t)val - (buff[2] * 65536U) / 256U);
+  buff[1] = (uint8_t)(((uint32_t)val - (buff[2] * 65536U)) / 256U);
   buff[0] = (uint8_t)((uint32_t)val - (buff[2] * 65536U) -
                       (buff[1] * 256U));
   ret =  lps22hb_write_reg(ctx, LPS22HB_REF_P_XL, buff, 3);
