@@ -30,7 +30,21 @@ This directory contains the LPS22HB component drivers.
 # Update history
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section8" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section9" checked aria-hidden="true">
+<label for="collapse-section9" aria-hidden="true">V2.3.0 / 08-Oct-2026</label>
+<div>
+
+## Main changes
+
+- Fix pressure_ref_set API
+- Fix gcc and clang compilation warnings
+- Fix parameter names to stmdev read/write/deleay functions
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section8" aria-hidden="true">
 <label for="collapse-section8" aria-hidden="true">V2.2.1 / 18-Mar-2026</label>
 <div>
 
